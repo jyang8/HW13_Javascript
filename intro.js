@@ -1,69 +1,43 @@
-//send diagnostic output to console
-//(Ctrl-Shift-J in Chromium & Firefox to reveal console)
-console.log("AYO");
+/*
+Add the following to your previous work:
+- Add a second list to the html page, do not add elements to it.
+- Create a second button.
+- When the second button is pressed, the new list should have an item added that contains the next fibonacci number.
+- For the mathematically inclined, you could add more lists that generate other numeric sequences if you like.
+*/
 
-var i = "hello";
-var j = 20;
+var list = document.getElementsByTagName("li");
+var thelist = document.getElementById("thelist");
+var btn = document.getElementById("b");
 
+// When the button is pushed, add an element to the list
+var add = function() {
+    var newElement = document.createElement("li");
+    newElement.innerHTML = "New element";
+    thelist.appendChild(newElement);
+}
 
-//assign an anonymous fxn to a var
-var f = function(x) {
-    var j=30;
-    return j+x;
+// When the mouse goes over an item in the list, change the heading at the top to contain the text of the item
+var changeHeading = function() {
+    var heading = document.getElementById("h");
+    heading.innerHTML = this.innerHTML;
 };
 
-
-//(define fact (lambda (n) ...)
-var fact = function(n) {
-    var prod=1;
-    for ( ; n > 1 ; n--){
-	prod = prod * n;
-    }
-    return prod;
+// When the mouse is no longer over an item in the list, change the heading back to "Hello World!"
+var revertHeading = function() {
+    var heading = document.getElementById("h");
+    heading.innerHTML = "Hello World!";
 };
 
-
-//(define fact (lambda (n) ...)
-var factR = function(n) {
-    if ( n<=1 ) {
-	return 1;
-    }
-    else {
-	return n * factR(n-1);
-    }
+// When an item on the list is clicked, remove it from the DOM
+var rm = function() {
+    this.remove();
 };
 
+for (var x = 0; x < list.length; x++) {
+    list[x].addEventListener("mouseover", changeHeading);
+    list[x].addEventListener("mouseout", revertHeading);
+    list[x].addEventListener("click", rm);
+}
 
-//add list item 
-var addItem = function(text) {
-    var list = document.getElementById("thelist");
-    var newitem = document.createElement("li");
-    newitem.innerHTML = text;
-    list.appendChild(newitem);
-};
-
-
-//remove specified item from list
-var removeItem = function(n) {
-    var listitems = document.getElementsByTagName('li');
-    listitems[n].remove();
-};
-
-
-var red = function() {
-    var items = document.getElementsByTagName("li");
-    for(var i = 0; i < items.length; i++) {
-	items[i].classList.add('red');
-    }
-};
-
-
-//instantiate an object
-var o = { 'name' : 'Thluffy',
-	  age : 15,
-	  items : [10, 20, 30, 40],
-	  morestuff : {a : 1, b : 'ayo'},
-	  func : function(x) {
-	      return x+30;
-	  }
-	};
+btn.addEventListener("click", add);
