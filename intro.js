@@ -17,7 +17,11 @@ var fibonum = document.getElementsByClassName("fol")
 var add = function() {
     var newElement = document.createElement("li");
     newElement.innerHTML = "New element";
+    newElement.addEventListener("mouseover", changeHeading);
+    newElement.addEventListener("mouseout", revertHeading);
+    newElement.addEventListener("click", rm);
     thelist.appendChild(newElement);
+    console.log(list.length);
 }
 
 // When the mouse goes over an item in the list, change the heading at the top to contain the text of the item
@@ -52,7 +56,7 @@ var fibo = function(e) {
 // When the fibo button is push, add a new fibonacci term
 var fiboadd = function() {
     var newFibo = document.createElement("li");
-    newFibo.className = "fol"
+    newFibo.className = "fol";
     newFibo.innerHTML = fibo(fibonum.length);
     fibolist.appendChild(newFibo);
 }
